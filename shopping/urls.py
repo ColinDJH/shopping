@@ -18,6 +18,7 @@ from django.urls import path
 
 from cars.views import CarsAPIView, CarsDetailAPIView
 from commodity.views import CommodityAPIView, CommodityDetailAPIView
+from order.views import OrderAPIView, OrderDetailAPIView
 from user.views import UserLoginAPIView, UserRegisterAPIView, UserAPIView
 
 urlpatterns = [
@@ -32,4 +33,7 @@ urlpatterns = [
     # 购物车
     path("cars/", CarsAPIView.as_view()),
     path("cars/<int:cars_id>/", CarsDetailAPIView.as_view()),
+    # 订单
+    path("order/", OrderAPIView.as_view()),
+    path("order/<int:order_id>/", OrderDetailAPIView.as_view()),
 ]
