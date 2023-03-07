@@ -51,8 +51,25 @@ class CarsAPIView(APIView):
 class CarsDetailAPIView(APIView):
     authentication_classes = ()
 
-    def post(self, request):
-        pass
+    def put(self, request, cars_id):
+        cars = CarsModel.objects.filter(id=cars_id).first()
+        commodity_id = request.data.get('data').get('commodity_id')
+        amount = request.data.get('data').get('amount')
+        commodity = CommodityModel.objects.filter(id=commodity_id).first()
+        CarsCommodityModel.objects.filter(cars=cars, commodity=commodity).update(amount=amount)
+        return Response({
+            "code": 200,
+            "message": "success",
+            "data": {
+                "cars_id": cars.id
+            }})
 
-    def delete(self, request):
-        pass
+    def delete(self, request, cars_id):
+        cars = CarsModel.objects.filter(id=cars_id).first()
+        commodity_id = request.data.get("commodity_id")
+        commodity = CommodityModel.objects.filter(id=commodity_id).first()
+        CarsCommodityModel.objects.filter(cars=cars, commodity=commodity).delete()
+        return Response({
+            "code": 204,
+            "message": "success"
+        })

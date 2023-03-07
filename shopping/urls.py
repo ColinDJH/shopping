@@ -31,5 +31,5 @@ urlpatterns = [
     path("commodity/<int:id>", CommodityDetailAPIView.as_view()),
     # 购物车
     path("cars/", CarsAPIView.as_view()),
-    path("cars/<int:id>", CarsDetailAPIView.as_view()),
+    path("cars/<int:cars_id>/", CarsDetailAPIView.as_view()),
 ]
