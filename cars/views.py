@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from cars.models import CarsModel, CarsCommodityModel, CommodityModel
+from cars.serializers import CarsCommoditySerializers
 from user.models import UserModel
 
 
@@ -50,6 +51,16 @@ class CarsAPIView(APIView):
 
 class CarsDetailAPIView(APIView):
     authentication_classes = ()
+
+    def get(self, request, cars_id):
+        cars = CarsModel.objects.filter(id=cars_id).first()
+        commodity = CarsCommodityModel.objects.filter(cars=cars).all()
+        serializers = CarsCommoditySerializers(instance=commodity, many=True)
+        return Response({
+            "code": 200,
+            "message": "success",
+            "data": serializers.data
+        })
 
     def put(self, request, cars_id):
         cars = CarsModel.objects.filter(id=cars_id).first()
