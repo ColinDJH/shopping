@@ -9,7 +9,6 @@ from user.models import UserModel
 
 
 class CarsAPIView(APIView):
-    authentication_classes = ()
 
     def get(self, request):
         auth_token = request.META.get('HTTP_AUTHTOKEN', "")
@@ -65,7 +64,6 @@ class CarsAPIView(APIView):
 
 
 class CarsDetailAPIView(APIView):
-    authentication_classes = ()
 
     def put(self, request, cars_id):
         cars = CarsModel.objects.filter(id=cars_id).first()
