@@ -7,8 +7,8 @@ from utils.BaseModel import BaseModel
 
 class OrderModel(BaseModel):
     money = models.IntegerField()
-    is_delete = models.BooleanField()
-    user_id = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name="user_order")
+    is_delete = models.BooleanField(default=False)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name="user_order")
 
     class Meta:
         db_table = 'order'

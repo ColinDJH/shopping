@@ -1,3 +1,5 @@
+import jwt
+from django.conf import settings
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -8,6 +10,19 @@ from user.models import UserModel
 
 class CarsAPIView(APIView):
     authentication_classes = ()
+
+    def get(self, request):
+        auth_token = request.META.get('HTTP_AUTHTOKEN', "")
+        payload = jwt.decode(auth_token, settings.SECRET_KEY, algorithms=['HS256'])
+        user_id = payload.get("id")
+        cars = CarsModel.objects.filter(user=UserModel.objects.filter(id=user_id).first()).first()
+        commodity = CarsCommodityModel.objects.filter(cars=cars).all()
+        serializers = CarsCommoditySerializers(instance=commodity, many=True)
+        return Response({
+            "code": 200,
+            "message": "success",
+            "data": serializers.data
+        })
 
     def post(self, request):
         cars_data = request.data
@@ -51,16 +66,6 @@ class CarsAPIView(APIView):
 
 class CarsDetailAPIView(APIView):
     authentication_classes = ()
-
-    def get(self, request, cars_id):
-        cars = CarsModel.objects.filter(id=cars_id).first()
-        commodity = CarsCommodityModel.objects.filter(cars=cars).all()
-        serializers = CarsCommoditySerializers(instance=commodity, many=True)
-        return Response({
-            "code": 200,
-            "message": "success",
-            "data": serializers.data
-        })
 
     def put(self, request, cars_id):
         cars = CarsModel.objects.filter(id=cars_id).first()
