@@ -19,7 +19,7 @@ from django.urls import path
 from cars.views import CarsAPIView, CarsDetailAPIView
 from commodity.views import CommodityAPIView, CommodityDetailAPIView
 from order.views import OrderAPIView, OrderDetailAPIView
-from user.views import UserLoginAPIView, UserRegisterAPIView, UserAPIView
+from user.views import UserLoginAPIView, UserRegisterAPIView, UserAPIView, CustomersView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,4 +36,6 @@ urlpatterns = [
     # 订单
     path("order/", OrderAPIView.as_view()),
     path("order/<int:order_id>/", OrderDetailAPIView.as_view()),
+
+    path("bc/", CustomersView.as_view()),
 ]

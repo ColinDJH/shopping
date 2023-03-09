@@ -7,6 +7,7 @@ from commodity.models import CommodityModel
 from order.models import OrderCommodityModel, OrderModel
 from order.serializers import OrderSerializers, OrderCommoditySerializers
 from user.models import UserModel
+from utils.bc_requests import BCCustomers
 
 
 class OrderAPIView(APIView):
@@ -16,6 +17,22 @@ class OrderAPIView(APIView):
         user_id = payload.get("id")
         user = UserModel.objects.filter(id=user_id).first()
         order_data = request.data
+
+        # BC创建订单
+        bc_order = BCCustomers()
+        customer = bc_order.get_all_customer()
+        customer_id = 1
+        for customer in customer:
+            customer_first_name = customer.get("first_name")
+            if customer_first_name == user.user_name:
+                customer_id = customer.get("id")
+                break
+        user_information = {
+            "customer_id": customer_id,
+            "email": user.email
+        }
+        data = bc_order.create_an_order(user=user_information)
+
         order = OrderModel.objects.create(money=0, user=user)
         money = 0
         for commodity in order_data.get("data"):
@@ -30,7 +47,8 @@ class OrderAPIView(APIView):
             "message": "success",
             "data": {
                 "user_id": user_id,
-                "order_id": order.id
+                "order_id": order.id,
+                "bc": data
             }})
 
 
