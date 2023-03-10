@@ -98,7 +98,16 @@ REST_FRAMEWORK = {
     # 用户验证
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'utils.JWT.JWTAuthentication',
-    )
+    ),
+    # 访问流量限制
+    'DEFAULT_THROTTLE_CLASSES': [
+        # 'rest_framework.throttling.AnonRateThrottle',  # 匿名用户
+        'utils.throttle.UserThrottle'  # 认证用户
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        # 'anon': '5/minute',
+        'user': '20/minute'
+    }
 }
 
 # Password validation

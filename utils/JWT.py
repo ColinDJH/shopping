@@ -33,4 +33,7 @@ class JWTAuthentication(BaseAuthentication):
         if not user:
             raise exceptions.AuthenticationFailed("Unauthenticated")
 
+        user.is_authenticated = True
+        request.user = user
+
         return user, None
