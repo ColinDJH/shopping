@@ -25,8 +25,10 @@ class CarsAPIView(APIView):
 
     def post(self, request):
         cars_data = request.data
-        # {'user_id': 1, 'commodity': [{'commodity_id': 1, 'amount': 2}, {'commodity_id': 2, 'amount': 1}]}
-        user = UserModel.objects.filter(id=cars_data.get("data").get('user_id')).first()
+        auth_token = request.META.get('HTTP_AUTHTOKEN', "")
+        payload = jwt.decode(auth_token, settings.SECRET_KEY, algorithms=['HS256'])
+        user_id = payload.get("id")
+        user = UserModel.objects.filter(id=user_id).first()
         commodities = cars_data.get('data').get("commodity")
         cars = CarsModel.objects.filter(user=user).first()
         if cars:
