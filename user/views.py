@@ -2,10 +2,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from servers.bc_requests import BCCustomers
 from user.models import UserModel
 from user.serializers import UserSerializers, UserLoginSerializers, UserReviseSerializers
 from utils.JWT import get_token
-from utils.bc_requests import BCCustomers
 
 
 class UserLoginAPIView(APIView):

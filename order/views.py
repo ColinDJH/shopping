@@ -6,8 +6,8 @@ from rest_framework.views import APIView
 from commodity.models import CommodityModel
 from order.models import OrderCommodityModel, OrderModel
 from order.serializers import OrderSerializers, OrderCommoditySerializers
+from servers.bc_requests import BCCustomers
 from user.models import UserModel
-from utils.bc_requests import BCCustomers
 
 
 class OrderAPIView(APIView):
