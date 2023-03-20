@@ -27,6 +27,8 @@ urlpatterns = [
     path('login/', UserLoginAPIView.as_view()),
     path('register/', UserRegisterAPIView.as_view()),
     path('user/<int:id>/', UserAPIView.as_view()),
+    # 测试redis
+    path('user/', UserAPIView.as_view()),
     # 商品
     path("commodity/", CommodityAPIView.as_view()),
     path("commodity/<int:id>", CommodityDetailAPIView.as_view()),

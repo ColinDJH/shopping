@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -92,6 +93,19 @@ class UserRegisterAPIView(APIView):
 
 
 class UserAPIView(APIView):
+    authentication_classes = ()
+
+    # 测试redis
+    def get(self, request):
+        company_data = cache.get('company_data')
+        if not company_data:
+            companies = UserModel.objects.all()
+            total_count = companies.count()
+            company_data = UserSerializers(companies, many=True).data
+            cache.set("company_data", company_data, timeout=600, )
+            return Response(company_data)
+        return Response(company_data)
+
     def put(self, request, id):
         data_dict = request.data
 
