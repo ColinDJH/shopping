@@ -33,6 +33,7 @@ class JWTAuthentication(BaseAuthentication):
         if not user:
             raise exceptions.AuthenticationFailed("Unauthenticated")
 
+        # 限流依据信息
         user.is_authenticated = True
         request.user = user
 

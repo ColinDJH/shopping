@@ -5,6 +5,8 @@ from tenacity import retry, wait_exponential, stop_after_attempt
 
 store_hash = "88sppjdb0w"
 access_token = "1vmpwzho1hr8yw5lditr8eso0dnh4cv"
+# store_hash = "rmz2xgu42d"
+# access_token = "jpts4mh09fxfef5ysqcgyyuqnegorgb"
 base_url = "https://api.bigcommerce.com/stores"
 
 

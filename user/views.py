@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from order.models import OrderModel
 from servers.bc_requests import BCCustomers
 from user.models import UserModel
 from user.serializers import UserSerializers, UserLoginSerializers, UserReviseSerializers
@@ -198,3 +199,13 @@ class CustomersView(APIView):
             "customer_id": customer_id,
             "data": data
         })
+
+
+class Test(APIView):
+    # authentication_classes = ()
+
+    def get(self, request):
+        # user = UserModel.objects.filter(id=1).first()
+        order = OrderModel.objects.first()
+        # return Response(user.user_order.all().values())
+        print(order.user.user_name)
