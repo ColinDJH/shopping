@@ -17,6 +17,9 @@
     <orderEntry type="jdk" jdkName="Python 3.10 (shopping_venv)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="fe46d775-9f21-4374-a33b-cbb1bf6f2dfe" />
+  </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />
   </component>

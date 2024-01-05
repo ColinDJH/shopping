@@ -82,3 +82,8 @@ class OrderDetailAPIView(APIView):
             "code": 204,
             "message": "success"
         })
+
+
+class OrderCommodityAPIView(APIView):
+    def post(self, request, *args, **kwargs):
+        return Response()
